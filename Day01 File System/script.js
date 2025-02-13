@@ -26,12 +26,12 @@ const fs = require('fs');
 // })
 
 
-// fs.copyFile("hey.txt", "./copy/copy.txt", (err) => {
-//     if (err)
-//         console.log(err);
-//     else
-//         console.log("DONE");
-// })
+fs.copyFile("hello.txt", "./copy/copy.txt", (err) => {
+    if (err)
+        console.log(err);
+    else
+        console.log("DONE");
+})
 
 
 // fs.rename("hey.txt", "hello.txt", (err) => {
@@ -51,11 +51,11 @@ const fs = require('fs');
 // })
 
 // But it removes all
-fs.rmdir("./copy", {
-    recursive: true
-}, (err) => {
-    if (err)
-        console.log(err);
-    else
-        console.log("DONE");
-})
+// fs.rmdir("./copy", {
+//     recursive: true
+// }, (err) => {
+//     if (err)
+//         console.log(err);
+//     else
+//         console.log("DONE");
+// })

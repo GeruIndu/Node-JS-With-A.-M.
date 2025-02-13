@@ -1,0 +1,1 @@
+THis is a file created by node js. Another Part by using appendFile

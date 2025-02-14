@@ -1,0 +1,13 @@
+{
+  "name": "day02-own-scripts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node script.js",
+    "xyz": "echo \"Hello World\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Indrajit",
+  "license": "ISC",
+  "description": ""
+}

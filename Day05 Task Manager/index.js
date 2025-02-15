@@ -20,6 +20,20 @@ app.get("/", function (req, res) {
     })
 })
 
+
+app.get("/files/:filename", function (req, res) {
+    fs.readFile(`./files/${req.params.filename}`, "utf-8", (err, filedata) => {
+        if (err)
+            console.log(err);
+        else {
+            res.render("show", {
+                filename: req.params.filename,
+                filedata: filedata
+            });
+        }
+    })
+})
+
 app.post("/create", function (req, res) {
     fs.writeFile(`./files/${req.body.title.split(' ').join('')}.txt`, `${req.body.content}`, function (err) {
         if (err)

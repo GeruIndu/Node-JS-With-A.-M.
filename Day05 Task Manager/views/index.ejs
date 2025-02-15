@@ -29,7 +29,11 @@
             <% files.map((value) => { %>
             <div class="card bg-zinc-800 min-w-72 px-3 py-4 rounded-md">
                 <h1 class="text-2xl tracking-tighter"><%= value %></h1>
-                <a href="../files/<%= value %>" class=" text-blue-500 inline-block mt-4">Read more.</a>
+                <div class="flex justify-between items-center">
+                    <a href="../files/<%= value %>" class=" text-blue-500 inline-block mt-4">Read more</a>
+                    <a href="../edit/<%= value %>" class=" text-zinc-400 inline-block mt-4">Edit filename</a>
+                </div>
+
             </div>
             <% }) %>
             <%} else { %>

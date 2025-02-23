@@ -27,7 +27,7 @@
                     <h2 class="name p-1"><%= user.name %></h2>
                     <h4 class="email text-zinc-500 p-1"><%= user.email %></h4>
                     <div class="flex justify-between mt-3">
-                        <a href="" class="text-zinc-600 cursor-pointer">Edit User</a>
+                        <a href="/edit/<%= user._id %>" class="text-zinc-600 cursor-pointer">Edit User</a>
                         <a href="/delete/<%= user._id %>" class="text-red-700 cursor-pointer">Delete User</a>
                     </div>
                 </div>    

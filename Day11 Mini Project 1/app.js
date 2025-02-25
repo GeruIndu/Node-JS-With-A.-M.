@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({urlencoded: true}));
@@ -32,7 +34,7 @@ app.post('/create', async (req, res) => {
             })
             const token = jwt.sign({email: createdUser.email, userId: createdUser._id}, 'abcd');
             res.cookie('token', token);
-            res.render("home");
+            res.redirect("/profile");
         })
     })
 
@@ -52,7 +54,7 @@ app.post('/login', async (req, res) => {
         {
             const token = jwt.sign({email: user.email, userId: user._id}, 'abcd');
             res.cookie('token', token);
-            return res.status(200).send("You can logged in");
+            res.status(200).redirect("/profile");
         }
         else
             return res.status(500).send("Something is wrong");
@@ -66,15 +68,23 @@ app.get('/logout', (req, res) => {
 
 // Middleware
 const isLoggedin = (req, res, next) => {
-    res.send(req.cookies);
+    const token = req.cookies.token;
+    if(!token) return res.status(500).redirect('/login');
+    else
+    {
+        const access = jwt.verify(token, 'abcd');
+        res.user = access;
+        next();
+    }
 }
 
-app.get('/profile', isLoggedin, (req, res) => {
-    res.send("hello")
+app.get('/profile', isLoggedin, async (req, res) => {
+
+
+    // const user = await userModel.findOne({email: req.user.email});
+
+    console.log(req.user);
+    // res.render('profile', {user});
 })
 
-
-
-app.listen(3000, () => {
-    console.log("server is running at http://localhost:3000");
-});
+app.listen(3000);

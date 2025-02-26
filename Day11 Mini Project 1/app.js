@@ -63,7 +63,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/logout', (req, res) => {
     res.cookie('token', "");
-    res.redirect('/');
+    res.redirect('/login');
 })
 
 // Middleware
@@ -73,18 +73,55 @@ const isLoggedin = (req, res, next) => {
     else
     {
         const access = jwt.verify(token, 'abcd');
-        res.user = access;
+        req.user = access;
         next();
     }
 }
 
 app.get('/profile', isLoggedin, async (req, res) => {
+    const user = await userModel.findOne({email: req.user.email}).populate('posts');
+    res.render('profile', {user});
+})
 
 
-    // const user = await userModel.findOne({email: req.user.email});
+app.post('/post', isLoggedin, async (req, res) => {
+    const user = await userModel.findOne({email: req.user.email});
+    const {content} = req.body;
+    const post = await postModel.create({
+        user: user._id,
+        content
+    })
+    
+    user.posts.push(post._id);
+    await user.save();
+    res.redirect('/profile')
+})
 
-    console.log(req.user);
-    // res.render('profile', {user});
+app.get('/like/:id', isLoggedin, async (req, res) => {
+    const post = await postModel.findOne({_id: req.params.id});
+
+    const index = post.likes.indexOf(req.user.userId);
+    if(index == -1)
+    {
+        post.likes.push(req.user.userId);
+    }
+    else
+    {
+        post.likes.splice(index, 1);
+    }
+    await post.save();
+
+    res.redirect('/profile');
+})
+
+app.get('/edit/:id', isLoggedin, async (req, res) => {
+    const post = await postModel.findOne({_id: req.params.id});
+    res.render('edit', {post});
+})
+
+app.post('/edit/:id', async (req, res) => {
+    const post = await postModel.findOneAndUpdate({_id: req.params.id}, {content: req.body.content});
+    res.redirect('/profile');
 })
 
 app.listen(3000);

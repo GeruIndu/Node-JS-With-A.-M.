@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full h-screen bg-zinc-900 text-white p-10">
+        <form method="post" action="/create" class="flex flex-col gap-3 justify-center items-center">
+            <div class="text-3xl mb-4 font-bold">Create User</div>
+            <input class="w-72 px-5 py-2 outline-none rounded mr-3 bg-zinc-800" type="text" name="username" placeholder="Username" value="">
+            <input class="w-72 px-5 py-2 outline-none rounded mr-3 bg-zinc-800" type="text" name="name" placeholder="Name" value="">
+            <input class="w-72 px-5 py-2 outline-none rounded mr-3 bg-zinc-800" type="email" name="email" placeholder="Email" value="">
+            <input class="w-72 px-5 py-2 outline-none rounded mr-3 bg-zinc-800" type="password" name="password" placeholder="Password" value="">
+            <input class="w-72 px-5 py-2 outline-none rounded mr-3 bg-zinc-800" type="number" name="age" placeholder="Age" value="">
+            <div class="text-zinc-500 text-left">Already have account !! <a class="login" href="/login">Login..</a></div>
+
+            <button class="px-6 py-2 bg-blue-800 rounded cursor-pointer" type="submit">Signup</button>
+        </form>
+    </div>
+</body>
+</html>

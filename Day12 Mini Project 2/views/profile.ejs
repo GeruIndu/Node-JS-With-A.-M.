@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheet/style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full h-screen bg-zinc-900 text-white py-2 px-10">
+        <div class="w-full flex justify-end gap-3">
+            <button class="px-3 py-2 bg-yellow-500 rounded mt-7"><a href="/profile/upload">Change Profile</a></button>
+            <button class="px-3 py-2 bg-red-500 rounded mt-7"><a href="/logout">Logout</a></button>
+        </div>
+        <div class="btoom">
+            <div class="flex gap-3 items-end">
+                <div class="w-12 h-12 rounded overflow-hidden">
+                    <img class="h-full w-full object-cover" src="/images/uploaded/<%= user.profilepic %>" alt="">
+                </div>
+                <h1 class="text-2xl">Hey <span class="text-blue-500"><%= user.name %> 👋</span></h1>
+            </div>
+            <h1 class="mt-5 text-2xl">You can create your post</h1>
+            <form action="/post" method="post">
+                <textarea class="w-1/3 p-3 resize-none outline-none mt-5 rounded bg-zinc-800 block" name="content"  placeholder="What is going on your mind."></textarea>
+                <button class="px-3 py-2 bg-blue-500 rounded block mt-3 text-sm cursor-pointer">Create Post</button>
+            </form>
+
+            <div class="text-2xl font-bold text-zinc-500 mt-7 mb-5">Post List</div>
+            <% if(user.posts.length == 0) { %>
+                <div class="text-zinc-500">No Post is available</div>
+            <% } else { %>
+            <div class="postlist">
+                <% user.posts.forEach((post) => { %>
+                    <div class="post w-1/2 bg-zinc-800 p-3 rounded-md mb-5">
+                        <h1 class="text-blue-500">@<%= user.username %></h1>
+                        <div><%= post.content %></div>
+
+                        <div class="mt-4 text-sm"><%= post.likes.length %> likes</div>
+                        <a class="text-red-500 mt-1 cursor-pointer" href="/like/<%= post._id %>">
+                            <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+                        </a>
+                        <a class="text-zinc-500 mt-1 ml-3 cursor-pointer" href="/edit/<%= post._id %>">Edit</a>
+                    </div>
+                <% }) %>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

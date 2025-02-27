@@ -142,7 +142,7 @@ app.post('/edit/:id', async (req, res) => {
 })
 
 app.get('/test', (req, res) => {
-    res.render('test');
+    res.render('file');
 })
 
 app.post('/upload', upload.single('image') , (req, res) => {
